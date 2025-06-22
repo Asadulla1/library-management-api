@@ -10,9 +10,6 @@ app.use(cors());
 app.use(express.json());
 app.use("/api/books", bookRoutes);
 app.use("/api/borrow", borrowRoutes);
-app.listen(port, () => {
-  console.log(`Application is listening to the port no ${port}`);
-});
 
 app.get("/", (req: Request, res: Response) => {
   res.status(200).json({
@@ -23,6 +20,9 @@ async function bootstrap() {
   try {
     await mongoose.connect(config.db_connection_string!);
     console.log("Mongodb Connected Successfully");
+    app.listen(port, () => {
+      console.log(`Application is listening to the port no ${port}`);
+    });
   } catch (error) {
     console.log((error as Error).message);
   }
